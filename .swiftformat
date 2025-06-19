@@ -1,0 +1,4 @@
+--disable assertionFailures
+--maxwidth 120
+--guardelse same-line
+--disable wrapMultilineStatementBraces
