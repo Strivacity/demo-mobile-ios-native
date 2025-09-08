@@ -16,6 +16,8 @@ struct WidgetHandler: View {
                     StaticView(widgetId: widgetId, widget: staticWidget)
                 } else if case let .submit(submitWidget) = widget {
                     SubmitView(formId: formId, widget: submitWidget)
+                } else if case let .webauthn(webuthnwidget) = widget {
+                    WebauthnView(formId: formId, widget: webuthnwidget)
                 } else if case let .input(inputWidget) = widget {
                     InputView(formId: formId, widgetId: widgetId, widget: inputWidget, fieldId: fieldId)
                 } else if case let .password(passwordWidget) = widget {
