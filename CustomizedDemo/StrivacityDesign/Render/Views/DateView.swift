@@ -20,7 +20,7 @@ struct DateView: View {
     public var body: some View {
         let error = loginController.errorMessage(formId: formId, widgetId: widget.id) ?? ""
 
-        if widget.render.type == "native" {
+        if widget.render?.type == "native" {
             DateField(widget: widget, formId: formId, fieldId: fieldId, error: error,
                       showCalendar: $showCalendar, selectedDate: loginController.bindingForWidget(
                           formId: formId,
@@ -52,7 +52,7 @@ struct DateView: View {
                 .presentationDragIndicator(.visible)
             }
 
-        } else if widget.render.type == "fieldSet" {
+        } else if widget.render?.type == "fieldSet" {
             HStack(spacing: 0) {
                 Text(widget.label ?? "Date field")
                     .foregroundStyle(error != "" ? Colors.red : Colors.placeHolder)

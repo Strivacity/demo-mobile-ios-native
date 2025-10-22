@@ -37,7 +37,7 @@ struct CheckboxView: View {
         public var body: some View {
             HStack {
                 Group {
-                    if widget.render.labelType == "html" {
+                    if widget.render?.labelType == "html" {
                         HtmlTextView(htmlContent: $htmlContentValue)
                             .onAppear {
                                 htmlContentValue = widget.label
@@ -45,21 +45,21 @@ struct CheckboxView: View {
                             .onChange(of: widget.label) { _, newLabel in
                                 htmlContentValue = newLabel
                             }
-                    } else if widget.render.labelType == "text" {
+                    } else if widget.render?.labelType == "text" {
                         Text(widget.label)
                     } else {
                         FallbackTriggerView()
                     }
                 }.frame(maxWidth: .infinity, alignment: .leading)
 
-                if widget.render.type == "checkboxShown" {
+                if widget.render?.type == "checkboxShown" {
                     Toggle(isOn: $isOn) {}
                         .tint(Colors.styPrimary)
                         .fixedSize()
                         .onTapGesture {
                             focusManager.setFocus(to: fieldId)
                         }
-                } else if widget.render.type == "checkboxHidden" {
+                } else if widget.render?.type == "checkboxHidden" {
                     VStack {}.onAppear {
                         isOn = true
                     }

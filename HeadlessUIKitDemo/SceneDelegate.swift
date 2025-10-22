@@ -9,7 +9,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         issuer: URL(string: "https://example.org")!,
         clientId: "",
         redirectURI: URL(string: "strivacity.DemoMobileIOS://native-flow")!,
-        postLogoutURI: URL(string: "strivacity.DemoMobileIOS://native-flow")!
+        postLogoutURI: URL(string: "strivacity.DemoMobileIOS://native-flow")!,
+        mode: .iosMinimal
     )
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
