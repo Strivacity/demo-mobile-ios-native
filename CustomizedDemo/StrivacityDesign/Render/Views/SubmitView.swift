@@ -19,20 +19,20 @@ struct SubmitView: View {
             }
         } label: { Text(widget.label)
             // this frame modifier is needed so that the whole button can be clickable
-            .frame(maxWidth: widget.render.type == "button" ? .infinity : nil)
-            .font(widget.render.type == "button" ? .body.bold() : .body)
-            .padding(.vertical, widget.render.type == "button" ? Typography.paddingMd : 0)
+            .frame(maxWidth: widget.render?.type == "button" ? .infinity : nil)
+            .font(widget.render?.type == "button" ? .body.bold() : .body)
+            .padding(.vertical, widget.render?.type == "button" ? Typography.paddingMd : 0)
         }
 
-        switch widget.render.type {
+        switch widget.render?.type {
         case "button":
-            let textColor = Color(hex: widget.render.textColor ?? "")
-            let bgColor = Color(hex: widget.render.bgColor ?? "")
+            let textColor = Color(hex: widget.render?.textColor ?? "")
+            let bgColor = Color(hex: widget.render?.bgColor ?? "")
 
             button
-                .foregroundColor(textColor ?? (widget.render.hint?.variant == "primary" ? .white : Colors
+                .foregroundColor(textColor ?? (widget.render?.hint?.variant == "primary" ? .white : Colors
                         .styPrimary))
-                .background(bgColor ?? (widget.render.hint?.variant == "primary" ? Colors
+                .background(bgColor ?? (widget.render?.hint?.variant == "primary" ? Colors
                         .styPrimary : .white))
                 .cornerRadius(Typography.borderRadius)
                 .border(Colors.borderGray, width: 1)

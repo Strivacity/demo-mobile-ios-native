@@ -11,7 +11,7 @@ struct SelectView: View {
     let fieldId: String
 
     public var body: some View {
-        if widget.render.type == "dropdown" {
+        if widget.render?.type == "dropdown" {
             if widget.options[0].type == "item" {
                 SimpleSelect(
                     formId: formId,
@@ -34,7 +34,7 @@ struct SelectView: View {
                     )
                 )
             }
-        } else if widget.render.type == "radio" {
+        } else if widget.render?.type == "radio" {
             RadioSelect(
                 formId: formId,
                 fieldId: fieldId,

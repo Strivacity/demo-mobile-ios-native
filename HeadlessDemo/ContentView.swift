@@ -15,7 +15,8 @@ struct ContentView: View {
             issuer: URL(string: "https://example.org")!,
             clientId: "",
             redirectURI: URL(string: "strivacity.DemoMobileIOS://native-flow")!,
-            postLogoutURI: URL(string: "strivacity.DemoMobileIOS://native-flow")!
+            postLogoutURI: URL(string: "strivacity.DemoMobileIOS://native-flow")!,
+            mode: .iosMinimal
         )
 
         session = nativeSDK.session
