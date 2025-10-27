@@ -16,7 +16,7 @@ class LoginViewController: UIViewController, HeadlessAdapterDelegate {
             await nativeSDK.login(
                 parameters: LoginParameters(
                     scopes: ["openid", "profile", "offline", "email"],
-                    prefersEphemeralWebBrowserSession: true,
+                    prefersEphemeralWebBrowserSession: true
                 ),
                 onSuccess: {
                     let mainViewController = MainViewController(nibName: "MainViewController", bundle: nil)

@@ -21,7 +21,9 @@ struct LoginScreen: View {
                 case "password":
                     PasswordView()
                 default:
-                    HeadlessAdapterLoginView(headlessAdapter: loginScreenModel.headlessAdapter)
+                    Text("Unkown screen")
+                    // Uncomment the following for unkown screen handling with SDK based renderer (not supported using minimal mode)
+//                    HeadlessAdapterLoginView(headlessAdapter: loginScreenModel.headlessAdapter)
                 }
             }
         }
