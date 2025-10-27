@@ -57,12 +57,6 @@ class PasswordViewController: ScreenViewController {
         }
     }
     
-    @IBAction func onForgottenPassword(_ sender: Any) {
-        Task { @MainActor in
-            await headlessAdapter.submit(formId: "additionalActions/forgottenPassword", data: nil)
-        }
-    }
-    
     @IBAction func onBackToLogin(_ sender: Any) {
         Task { @MainActor in
             await headlessAdapter.submit(formId: "reset", data: [:])

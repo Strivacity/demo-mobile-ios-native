@@ -6,8 +6,14 @@ class UnkownViewController: ScreenViewController {
 
     @IBOutlet weak var swiftUiContainer: UIView!
 
+    @IBOutlet weak var text: UILabel!
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        text.text = text.text! + ": \(screen.screen ?? "N/A")"
+
+        print(screen.screen)
 
         // Uncomment the following for unkown screen handling with SDK based renderer (not supported using minimal mode)
 //        let loginView = HeadlessAdapterLoginView(headlessAdapter: headlessAdapter)

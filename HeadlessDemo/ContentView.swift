@@ -27,30 +27,8 @@ struct ContentView: View {
             if loading {
                 Text("loading...")
             } else {
-                Text("Strivacity")
-
-                Spacer()
-
                 if let profile = session.profile {
-                    Text("Authenticated: ")
-                    Text(profile.claims["given_name"] as? String ?? "N/A")
-
-                    if let accessToken = accessToken {
-                        Text("Access token: \(accessToken)")
-                    } else {
-                        Button("Get access token") {
-                            Task {
-                                accessToken = try? await nativeSDK.getAccessToken()
-                            }
-                        }
-                    }
-
-                    Button("Logout") {
-                        Task {
-                            try await nativeSDK.logout()
-                        }
-                    }
-                    .tint(.primaryAction)
+                    ProfileView(nativeSDK: nativeSDK)
                 } else if session.loginInProgress {
                     LoginScreen(nativeSDK: nativeSDK)
                 } else {
@@ -59,7 +37,7 @@ struct ContentView: View {
                             self.error = nil
                             await nativeSDK.login(
                                 parameters: LoginParameters(
-                                    scopes: ["openid", "profile", "offline"],
+                                    scopes: ["openid", "profile", "email", "offline"],
                                     prefersEphemeralWebBrowserSession: true
                                 ),
                                 onSuccess: {
@@ -86,10 +64,6 @@ struct ContentView: View {
                     }
 
                 }
-
-                Spacer()
-
-                Text("Footer")
             }
         }
         .onAppear {
