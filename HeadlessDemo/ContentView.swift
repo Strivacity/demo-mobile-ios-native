@@ -50,6 +50,7 @@ struct ContentView: View {
                             try await nativeSDK.logout()
                         }
                     }
+                    .tint(.primaryAction)
                 } else if session.loginInProgress {
                     LoginScreen(nativeSDK: nativeSDK)
                 } else {

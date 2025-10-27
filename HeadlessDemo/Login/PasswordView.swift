@@ -50,7 +50,9 @@ struct PasswordView: View {
                 Task {
                     await loginScreenModel.headlessAdapter.submit(formId: "password", data: ["password": password, "keepMeLoggedIn": keepMeLoggedIn])
                 }
-            }.buttonStyle(.borderedProminent)
+            }
+            .buttonStyle(.borderedProminent)
+            .tint(.primaryAction)
 
             Button("Forgot your password?") {
                 Task {

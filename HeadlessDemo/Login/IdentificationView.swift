@@ -23,7 +23,9 @@ struct IdentificationView: View {
                 Task {
                     await loginScreenModel.headlessAdapter.submit(formId: "identifier", data: ["identifier": identifier])
                 }
-            }.buttonStyle(.borderedProminent)
+            }
+            .tint(.primaryAction)
+            .buttonStyle(.borderedProminent)
 
             HStack {
                 Text("Don't have an account?")

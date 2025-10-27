@@ -3,6 +3,7 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24063"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -25,7 +26,9 @@
                     <rect key="frame" x="164" y="408" width="66" height="35"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="filled" title="Login"/>
+                    <buttonConfiguration key="configuration" style="filled" title="Login">
+                        <color key="baseBackgroundColor" name="PrimaryButton"/>
+                    </buttonConfiguration>
                     <connections>
                         <action selector="loginClicked:" destination="-1" eventType="touchUpInside" id="2Vn-I7-qWF"/>
                     </connections>
@@ -48,6 +51,9 @@
         </view>
     </objects>
     <resources>
+        <namedColor name="PrimaryButton">
+            <color red="0.36470588235294116" green="0.12941176470588237" blue="0.6705882352941176" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
