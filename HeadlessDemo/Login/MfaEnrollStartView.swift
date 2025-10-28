@@ -1,11 +1,11 @@
 import SwiftUI
 import SdkMobileIOSNative
 
-struct PasswordView: View {
+struct MfaEnrollStartView: View {
     @EnvironmentObject var loginScreenModel: LoginScreenModel
 
-    @State var password: String = ""
-    @State var keepMeLoggedIn: Bool = false
+    @State var email: Bool = false
+    @State var phone: Bool = false
 
     var identifier: String {
        loginScreenModel
@@ -19,8 +19,9 @@ struct PasswordView: View {
 
     var body: some View {
         VStack {
-            Text("Enter password")
-                .font(.largeTitle)
+            Text("Enroll the following authentication methods")
+                .multilineTextAlignment(.center)
+                .font(.title)
                 .bold()
 
             HStack {
@@ -32,21 +33,28 @@ struct PasswordView: View {
                 }
             }
 
-            SecureField("Enter your password", text: $password)
-            if let error = loginScreenModel.headlessAdapter.errorMessage(formId: "password", widgetId: "password") {
-                Text(error)
-                    .foregroundColor(.red)
-            }
+            Text("Choose at least one method")
 
-            Toggle("Keep me logged in", isOn: $keepMeLoggedIn)
+            Toggle("Email address", isOn: $email)
+            Toggle("Phone number", isOn: $phone)
 
             Button("Continue") {
                 Task {
-                    await loginScreenModel.headlessAdapter.submit(formId: "password", data: ["password": password, "keepMeLoggedIn": keepMeLoggedIn])
+                    var selected: [String] = []
+
+                    if email {
+                        selected.append("email")
+                    }
+                    if phone {
+                        selected.append("phone")
+                    }
+
+                    await loginScreenModel.headlessAdapter.submit(formId: "mfaEnrollStart", data: ["optional": selected])
                 }
             }
             .buttonStyle(.borderedProminent)
             .tint(.primaryAction)
+
 
             Button("Back to login") {
                 Task {
@@ -54,15 +62,6 @@ struct PasswordView: View {
                 }
             }
 
-        }
-        .onAppear {
-            keepMeLoggedIn = loginScreenModel
-                .screen?
-                .forms?
-                .first(where: { $0.id == "password" })?
-                .widgets
-                .first(where: { $0.id == "keepMeLoggedIn" })?
-                .value as? Bool ?? false
         }
     }
 }

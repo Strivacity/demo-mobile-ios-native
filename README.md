@@ -6,9 +6,11 @@ See our [Developer Portal](https://www.strivacity.com/learn-support/developer-hu
 
 This repository contains example implementations for our SDK [https://github.com/Strivacity/demo-mobile-ios-native](https://github.com/Strivacity/demo-mobile-ios-native)
 
-We provide two example implementations:
+We provide the following example implementations:
 * SimpleDemo is a bare-bone implementation without any design customization
-* CustomizedDemo is a rebranded version demonstrates how to customize the screens and widgets
+* CustomizedDemo is a rebranded version that demonstrates how to customize the screens and widgets
+* HeadlessDemo is a demo implemented in headless mode using a fully owned application-implemented rendering using the latest SwiftUI technology
+* HeadlessUIKitDemo is a minimal-scoped demo implemented in headless mode using a fully owned application-implemented rendering using legacy UIKit
 
 ## Author
 

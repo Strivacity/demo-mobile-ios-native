@@ -15,8 +15,8 @@ class LoginViewController: UIViewController, HeadlessAdapterDelegate {
         Task { @MainActor in
             await nativeSDK.login(
                 parameters: LoginParameters(
-                    scopes: ["openid", "profile", "offline", "email"],
-                    prefersEphemeralWebBrowserSession: true,
+                    scopes: ["openid", "profile", "email", "offline"],
+                    prefersEphemeralWebBrowserSession: true
                 ),
                 onSuccess: {
                     let mainViewController = MainViewController(nibName: "MainViewController", bundle: nil)
@@ -74,6 +74,8 @@ class LoginViewController: UIViewController, HeadlessAdapterDelegate {
                 newScreenViewController = IdentificationViewController(nibName: "IdentificationViewController", bundle: nil)
             case "password":
                 newScreenViewController = PasswordViewController(nibName: "PasswordViewController", bundle: nil)
+            case "registration":
+                newScreenViewController = RegistrationViewController(nibName: "RegistrationViewController", bundle: nil)
             default:
                 newScreenViewController = UnkownViewController(nibName: "UnkownViewController", bundle: nil)
             }
@@ -96,6 +98,15 @@ class LoginViewController: UIViewController, HeadlessAdapterDelegate {
         Task { @MainActor in
             guard let current = screenViewController else {
                 return
+            }
+
+            switch screen.messages {
+            case .global(let message):
+                let alert = UIAlertController(title: message.text, message: nil, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default))
+                present(alert, animated: true)
+            default:
+                break
             }
 
             current.screen = screen
