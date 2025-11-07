@@ -85,17 +85,23 @@ class LoginScreenModel: ObservableObject, HeadlessAdapterDelegate {
         self.headlessAdapter = HeadlessAdapter(nativeSDK: nativeSDK, delegate: self)
     }
 
-    @MainActor
     public func renderScreen(screen: Screen) {
-        DispatchQueue.main.async {
+        if Thread.isMainThread {
             self.screen = screen
+        } else {
+            DispatchQueue.main.async {
+                self.screen = screen
+            }
         }
     }
 
-    @MainActor
     public func refreshScreen(screen: Screen) {
-        DispatchQueue.main.async {
+        if Thread.isMainThread {
             self.screen = screen
+        } else {
+            DispatchQueue.main.async {
+                self.screen = screen
+            }
         }
     }
 }
