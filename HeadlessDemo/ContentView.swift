@@ -27,35 +27,46 @@ struct ContentView: View {
             if loading {
                 Text("loading...")
             } else {
-                if let profile = session.profile {
+                if session.profile != nil {
                     ProfileView(nativeSDK: nativeSDK)
                 } else if session.loginInProgress {
-                    LoginScreen(nativeSDK: nativeSDK)
+                    VStack {
+                        Spacer()
+                        LoginScreen(nativeSDK: nativeSDK)
+                        Spacer()
+
+                        Button("Cancel") {
+                            Task {
+                                nativeSDK.cancelFlow(error: .oidcError(error: "cancel", errorDescription: "Canceled by the user"))
+                            }
+                        }
+                    }
                 } else {
                     Button("Login") {
                         Task {
                             self.error = nil
-                            await nativeSDK.login(
-                                parameters: LoginParameters(
-                                    scopes: ["openid", "profile", "email", "offline"],
-                                    prefersEphemeralWebBrowserSession: true
-                                ),
-                                onSuccess: {
-                                },
-                                onError: { err in
-                                    switch err {
-                                    case let NativeSDKError.oidcError(error: _, errorDescription: errorDescription):
-                                        self.error = errorDescription
-                                    case NativeSDKError.hostedFlowCanceled:
-                                        self.error = "Hosted login canceled"
-                                    case NativeSDKError.sessionExpired:
-                                        self.error = "Session expired"
-                                    default:
-                                        print(err)
-                                        self.error = "N/A"
-                                    }
+
+                            do {
+                                let profile = try await nativeSDK.login(
+                                    parameters: LoginParameters(
+                                        acrValue: "hu",
+                                        scopes: ["openid", "profile", "email", "offline"],
+                                        prefersEphemeralWebBrowserSession: true
+                                    )
+                                )
+                            } catch {
+                                print("error \(error, default: "nil")")
+                                switch error {
+                                case let NativeSDKError.oidcError(error: _, errorDescription: errorDescription):
+                                    self.error = errorDescription
+                                case NativeSDKError.hostedFlowCanceled:
+                                    self.error = "Hosted login canceled"
+                                case NativeSDKError.sessionExpired:
+                                    self.error = "Session expired"
+                                default:
+                                    self.error = "N/A"
                                 }
-                            )
+                            }
                         }
                     }
                     if let error = error {
