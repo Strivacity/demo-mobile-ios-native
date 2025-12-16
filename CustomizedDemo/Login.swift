@@ -16,6 +16,11 @@ struct Login: View {
                         if let profile = session.profile {
                             Text("Authenticated: ")
                             Text(profile.claims["given_name"] as? String ?? "N/A")
+                            Button("Revoke") {
+                                Task {
+                                    try await nativeSDK.revoke()
+                                }
+                            }
                             Button("Logout") {
                                 Task {
                                     try await nativeSDK.logout()
