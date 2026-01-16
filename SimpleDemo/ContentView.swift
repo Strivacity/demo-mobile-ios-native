@@ -43,6 +43,12 @@ struct ContentView: View {
                         }
                     }
 
+                    Button("Revoke") {
+                        Task {
+                            try await nativeSDK.revoke()
+                        }
+                    }
+                    
                     Button("Logout") {
                         Task {
                             try await nativeSDK.logout()
